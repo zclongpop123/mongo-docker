@@ -1,0 +1,24 @@
+services:
+    mongodb:
+        user: 2001:2001
+
+        image: mongo:6.0.16
+        container_name: mongodb
+        restart: unless-stopped
+
+        volumes:
+            - type: bind
+              source: /home/mongo
+              target: /home/mongo
+
+            - type: bind
+              source: /home/mongo/data
+              target: /data/db
+
+        environment:
+            TZ: "Asia/Shanghai"
+
+        ports:
+            - 27100:27100
+
+        command: ["mongod", "--config", "/home/mongo/config/mongod.conf"]
